@@ -1,0 +1,10 @@
+{
+  "itemGroup.projects": "Мод Time Stop",
+  "block.projects.example_block": "Пример Блока",
+  "item.projects.example_item": "Пример Предмета",
+  "key.category.projects": "Мод Остановки Времени",
+  "key.projects.time_stop": "Остановить/Запустить Время",
+  "message.projects.time_stopped": "§cВремя Остановлено!",
+  "message.projects.time_resumed": "§aВремя Запущено!"
+}
+

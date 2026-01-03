@@ -1,0 +1,73 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# VS Code
+.vscode/
+
+# NeoForge/Minecraft
+run/
+eclipse/
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+bin/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*~
+
+# Generated files
+src/generated/
+build/generated/
+
+# Config files (uncomment if you want to ignore configs)
+# config/
+
+# Crash reports
+crash-reports/
+
+# Screenshots
+screenshots/
+
