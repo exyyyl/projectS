@@ -1,0 +1,10 @@
+{
+  "itemGroup.projects": "Aba de Mod de Exemplo",
+  "block.projects.example_block": "Bloco de Exemplo",
+  "item.projects.example_item": "Item de Exemplo",
+  "key.category.projects": "Mod de Parar o Tempo",
+  "key.projects.time_stop": "Alternar Parar o Tempo",
+  "message.projects.time_stopped": "§cTempo Parado!",
+  "message.projects.time_resumed": "§aTempo Retomado!"
+}
+

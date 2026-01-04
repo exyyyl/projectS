@@ -1,0 +1,10 @@
+{
+  "itemGroup.projects": "サンプルMODタブ",
+  "block.projects.example_block": "サンプルブロック",
+  "item.projects.example_item": "サンプルアイテム",
+  "key.category.projects": "時間停止MOD",
+  "key.projects.time_stop": "時間停止の切り替え",
+  "message.projects.time_stopped": "§c時間が停止しました！",
+  "message.projects.time_resumed": "§a時間が再開しました！"
+}
+

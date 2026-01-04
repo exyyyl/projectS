@@ -1,0 +1,10 @@
+{
+  "itemGroup.projects": "示例模组标签",
+  "block.projects.example_block": "示例方块",
+  "item.projects.example_item": "示例物品",
+  "key.category.projects": "时间停止模组",
+  "key.projects.time_stop": "切换时间停止",
+  "message.projects.time_stopped": "§c时间已停止！",
+  "message.projects.time_resumed": "§a时间已恢复！"
+}
+

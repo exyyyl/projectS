@@ -1,0 +1,10 @@
+{
+  "itemGroup.projects": "Onglet Mod Exemple",
+  "block.projects.example_block": "Bloc Exemple",
+  "item.projects.example_item": "Objet Exemple",
+  "key.category.projects": "Mod Arrêt du Temps",
+  "key.projects.time_stop": "Basculer l'Arrêt du Temps",
+  "message.projects.time_stopped": "§cTemps Arrêté !",
+  "message.projects.time_resumed": "§aTemps Repris !"
+}
+
