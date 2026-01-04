@@ -2,8 +2,10 @@ package org.example.exyyyl.projects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -18,6 +20,10 @@ import java.util.UUID;
 public class TimeController {
     private static boolean timeStopped = false;
     private static final Set<UUID> frozenEntities = new HashSet<>();
+    
+    // Store original gamerule values to restore them later
+    private static boolean originalDaylightCycle = true;
+    private static boolean originalWeatherCycle = true;
 
     public static boolean isTimeStopped() {
         return timeStopped;
@@ -28,6 +34,26 @@ public class TimeController {
         
         Player player = Minecraft.getInstance().player;
         if (player != null) {
+            // Handle game time freeze
+            MinecraftServer server = Minecraft.getInstance().getSingleplayerServer();
+            if (server != null) {
+                GameRules gameRules = server.getGameRules();
+                
+                if (timeStopped) {
+                    // Save original values before freezing
+                    originalDaylightCycle = gameRules.getBoolean(GameRules.RULE_DAYLIGHT);
+                    originalWeatherCycle = gameRules.getBoolean(GameRules.RULE_WEATHER_CYCLE);
+                    
+                    // Freeze time and weather
+                    gameRules.getRule(GameRules.RULE_DAYLIGHT).set(false, server);
+                    gameRules.getRule(GameRules.RULE_WEATHER_CYCLE).set(false, server);
+                } else {
+                    // Restore original values
+                    gameRules.getRule(GameRules.RULE_DAYLIGHT).set(originalDaylightCycle, server);
+                    gameRules.getRule(GameRules.RULE_WEATHER_CYCLE).set(originalWeatherCycle, server);
+                }
+            }
+            
             if (timeStopped) {
                 player.displayClientMessage(Component.translatable("message." + Projects.MODID + ".time_stopped"), true);
             } else {
