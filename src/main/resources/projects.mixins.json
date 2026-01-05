@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "org.example.exyyyl.projects.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "MobEffectInstanceMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+
