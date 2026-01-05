@@ -23,13 +23,22 @@ public class TimeController {
      */
     public static void restoreAndReset() {
         if (timeStopped) {
+            Minecraft mc = Minecraft.getInstance();
+            
             // Unfreeze the game
-            MinecraftServer server = Minecraft.getInstance().getSingleplayerServer();
+            MinecraftServer server = mc.getSingleplayerServer();
             if (server != null) {
                 server.tickRateManager().setFrozen(false);
             }
+            
+            // Set timeStopped to false BEFORE resume() so Mixin doesn't block it
+            timeStopped = false;
+            
+            // Resume sounds
+            mc.getSoundManager().resume();
+        } else {
+            timeStopped = false;
         }
-        timeStopped = false;
     }
 
     public static void toggleTimeStop() {
@@ -47,10 +56,16 @@ public class TimeController {
             // Freeze all game ticks
             server.tickRateManager().setFrozen(true);
             
+            // Pause all sounds (like ESC pause does)
+            mc.getSoundManager().pause();
+            
             player.displayClientMessage(Component.translatable("message." + Projects.MODID + ".time_stopped"), true);
         } else {
             // Unfreeze game ticks
             server.tickRateManager().setFrozen(false);
+            
+            // Resume all sounds
+            mc.getSoundManager().resume();
             
             player.displayClientMessage(Component.translatable("message." + Projects.MODID + ".time_resumed"), true);
         }

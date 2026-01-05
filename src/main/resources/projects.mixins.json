@@ -6,6 +6,9 @@
   "mixins": [
     "MobEffectInstanceMixin"
   ],
+  "client": [
+    "SoundManagerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
