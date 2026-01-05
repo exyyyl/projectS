@@ -1,7 +1,4 @@
 {
-  "itemGroup.projects": "Pestaña de Modo de Ejemplo",
-  "block.projects.example_block": "Bloque de Ejemplo",
-  "item.projects.example_item": "Objeto de Ejemplo",
   "key.category.projects": "Modo de Detención del Tiempo",
   "key.projects.time_stop": "Alternar Detención del Tiempo",
   "message.projects.time_stopped": "§c¡Tiempo Detenido!",

@@ -1,7 +1,4 @@
 {
-  "itemGroup.projects": "Example Mod Tab",
-  "block.projects.example_block": "Example Block",
-  "item.projects.example_item": "Example Item",
   "key.category.projects": "Time Stop Mod",
   "key.projects.time_stop": "Toggle Time Stop",
   "message.projects.time_stopped": "§cTime Stopped!",

@@ -1,7 +1,4 @@
 {
-  "itemGroup.projects": "Beispiel-Mod-Tab",
-  "block.projects.example_block": "Beispiel-Block",
-  "item.projects.example_item": "Beispiel-Gegenstand",
   "key.category.projects": "Zeitstopp-Mod",
   "key.projects.time_stop": "Zeitstopp Umschalten",
   "message.projects.time_stopped": "§cZeit Gestoppt!",
