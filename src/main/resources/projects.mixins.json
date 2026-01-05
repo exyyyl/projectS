@@ -4,7 +4,11 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "mixins": [
-    "MobEffectInstanceMixin"
+    "MobEffectInstanceMixin",
+    "PlayerAirMixin"
+  ],
+  "client": [
+    "SoundManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
