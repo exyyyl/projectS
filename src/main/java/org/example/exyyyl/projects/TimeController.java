@@ -10,6 +10,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 
 public class TimeController {
     private static boolean timeStopped = false;
@@ -56,7 +58,7 @@ public class TimeController {
             // Freeze all game ticks
             server.tickRateManager().setFrozen(true);
             
-            // Pause all sounds (like ESC pause does)
+            // Pause all sounds - this will pause mob sounds but we'll allow player/block sounds through Mixin
             mc.getSoundManager().pause();
             
             player.displayClientMessage(Component.translatable("message." + Projects.MODID + ".time_stopped"), true);
@@ -64,7 +66,7 @@ public class TimeController {
             // Unfreeze game ticks
             server.tickRateManager().setFrozen(false);
             
-            // Resume all sounds
+            // Resume all sounds - this will allow mob sounds to play again
             mc.getSoundManager().resume();
             
             player.displayClientMessage(Component.translatable("message." + Projects.MODID + ".time_resumed"), true);
@@ -88,6 +90,35 @@ public class TimeController {
         public static void onClientTick(ClientTickEvent.Post event) {
             if (ModKeyBindings.timeStopKey != null && ModKeyBindings.timeStopKey.consumeClick()) {
                 toggleTimeStop();
+            }
+        }
+        
+        @SubscribeEvent
+        public static void onScreenOpen(ScreenEvent.Opening event) {
+            // Pause all sounds when opening any screen (inventory, pause menu, etc.) during time stop
+            if (timeStopped) {
+                Minecraft mc = Minecraft.getInstance();
+                mc.getSoundManager().pause();
+            }
+        }
+        
+        @SubscribeEvent
+        public static void onScreenClose(ScreenEvent.Closing event) {
+            // Pause all sounds when closing any screen during time stop
+            // This ensures mob sounds stay paused after closing inventory/ESC menu
+            if (timeStopped) {
+                Minecraft mc = Minecraft.getInstance();
+                mc.getSoundManager().pause();
+            }
+        }
+        
+        @SubscribeEvent
+        public static void onAttackEntity(AttackEntityEvent event) {
+            // Pause sounds when hitting an entity during time stop
+            // This will stop any mob sounds that somehow started playing
+            if (timeStopped) {
+                Minecraft mc = Minecraft.getInstance();
+                mc.getSoundManager().pause();
             }
         }
         

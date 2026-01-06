@@ -14,21 +14,45 @@ public class SoundManagerMixin {
     
     @Inject(method = "resume", at = @At("HEAD"), cancellable = true)
     private void onResume(CallbackInfo ci) {
-        // Block sound resume while time is stopped
+        // Block sound resume while time is stopped (except when we explicitly resume)
+        // This prevents sounds from resuming when opening inventory/ESC menu
         if (TimeController.isTimeStopped()) {
             ci.cancel();
         }
     }
     
-    @Inject(method = "play", at = @At("HEAD"), cancellable = true)
+    /**
+     * Helper method to check if a sound should be blocked
+     */
+    private boolean shouldBlockSound(SoundSource source) {
+        if (!TimeController.isTimeStopped()) {
+            return false;
+        }
+        // Allow player sounds, block sounds (breaking blocks), and UI sounds
+        return source != SoundSource.PLAYERS && source != SoundSource.BLOCKS && source != SoundSource.MASTER;
+    }
+    
+    @Inject(method = "play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V", at = @At("HEAD"), cancellable = true)
     private void onPlay(SoundInstance sound, CallbackInfo ci) {
-        // Block new sounds while time is stopped, except player sounds
-        if (TimeController.isTimeStopped()) {
-            SoundSource source = sound.getSource();
-            // Allow only player sounds and UI sounds
-            if (source != SoundSource.PLAYERS && source != SoundSource.MASTER) {
-                ci.cancel();
-            }
+        // Block new mob sounds while time is stopped, but allow player and block sounds
+        if (shouldBlockSound(sound.getSource())) {
+            ci.cancel();
+        }
+    }
+    
+    @Inject(method = "playDelayed", at = @At("HEAD"), cancellable = true)
+    private void onPlayDelayed(SoundInstance sound, int delay, CallbackInfo ci) {
+        // Block delayed mob sounds while time is stopped
+        if (shouldBlockSound(sound.getSource())) {
+            ci.cancel();
+        }
+    }
+    
+    @Inject(method = "queueTickingSound", at = @At("HEAD"), cancellable = true)
+    private void onQueueTickingSound(net.minecraft.client.resources.sounds.TickableSoundInstance sound, CallbackInfo ci) {
+        // Block ticking sounds (like bee buzzing) while time is stopped
+        if (shouldBlockSound(sound.getSource())) {
+            ci.cancel();
         }
     }
 }
